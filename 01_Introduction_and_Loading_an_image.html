@@ -1,0 +1,116 @@
+<HTML>
+<!--
+If you're looking to get started on your CreateJS app, you've come to the right place. Read these directions and take note of the coding. Feel free to cut and paste these snippets into your apps, experiment with them, and tweak them to the specific needs of your project
+
+All of these instructions are inside of comments. When we want the web browser to ignore something, we use a process called "commenting" to do this. HTML and JS have their own ways to comment.
+
+This is how your CreateJS app will be constructed
+
+1. The main file people click on to use the app will actually be an HTML file. HTML files contain a special language of their own that is interpreted by a web browser that uses this language to do any number of things (format text, place and size images, etc). For the most part you'll be doing your coding inside of a .html file so this is where you'll spend the majority of your time working.
+2. Within the HTML file, we will be using Javascript. Javascript is a programming language that's used to do things that are a little too intense for HTML to handle on it's own. There are two ways we'll be using Javascript. First, we'll be referencing outside JS files with valuable things that we need (the createJS library, your spritesheet metadata, etc). Second, we will be writing Javascript directly inside of the HTML file itself. This is used to do things very specific to our game (move the background along, make a character jump, etc).
+3. Within Javascript, there's a special set of commands called CreateJS. CreateJS is a special "library" of Javascript that's used to do complex things with audio, animation, preloading, and tweening. We use CreateJS because in order to do a lot of the things you want with your game, you would need to write a ridiculous amount of coding. CreateJS has a simplified set of commands that allows you to do more complex things with a lot less hassle. This is why you'll be able to make a game in one quarter of college instead of three.
+-->
+
+<!-- 
+In this first module, we'll set up the baseline elements of EVERY CreateJS project and then from there we will add a single image (display object) to our stage using CreateJS. This is  not very exciting but this is the first baby-step to larger things so hang in there because it's about to get very interesting but you need to know the basics first.
+-->
+
+<!--
+Let's begin building our HTML file. 
+First, everything needs to be between <HTML> and </HTML> tags (done).
+Next, we'll need to put important info between our <head> and </head> tags. This is stuff that will not be shown on our page but will be instrumental in making it work properly. You will be spending 99% of your time in the <head> portion of the document.
+-->
+<head>
+
+<!-- 
+This <script> tag imports the CreateJS library so we can use all of those good and easy commands.
+The CreateJS library file needs to be downloaded from the CreateJS website and either included in an easily referenced directory or it can be referenced with an online URL if you want. The choice is yours. I like having the file near my HTML document.
+-->
+<script src="js/createjs-2013.02.12.min.js"></script>
+
+<!-- 
+Okay! This is where most of the action happens. 
+You will be putting custom CreateJS commands in between the <script> and </script> tags below.
+-->
+<script>
+	//This is where the most work will be done on our app.
+	//Since we're not coding in Javascript, we'll need to use a different way to comment.
+
+	//the first thing we need to do is define a variable. 
+	//This variable is outside of a specified function so it's GLOBAL. Global variables are accessible ANYWHERE else in our document
+	//This variable will end up containing the stage. More on that later. 
+	var myStage;
+
+	//Here we're going to define a function called "init"
+	//Init is a set of commands that will automatically run when the document fully loads in the web browser
+	//So this is where you put anything that needs to happen at the very beginning of your app
+	//Can you name some examples of things you may want to happen at the very beginning of your app?
+	function init(){
+
+		//This is where we make a new stage and put it in our myStage variable for easy reference
+		//The stage is something that CONTROLS the Canvas element and feeds it commands (more on the canvas later).
+		//This is where all of the action for your app will happen.
+		myStage = new createjs.Stage(document.getElementById("myCanvas"));
+
+		//This is where we'll create a new image(bitmap). The bitmap is loaded in from an image that we already have created.
+		//A bitmap is an example of a DISPLAY OBJECT. Display objects will be discussed in a later module.
+		//Let's load a drawing from our image folder
+		var myImage = new createjs.Bitmap("images/frying_pan.jpg");
+
+
+		//Now we need to add this image to the stage with the following command
+		//Unless we tell the stage that we need it to display our image, it will just ignore it
+		myStage.addChild(myImage);
+
+
+
+
+		//After we've made all of these changes to our app, we'll need to configure and start the internal clock for our app
+		//Every time a frame is counted, we want it to execute a function called "drawNewFrame" which we'll specify below.
+		//If you have previous experience with programming this is similar to asking the computer to "redraw" everything.
+		createjs.Ticker.addEventListener('tick', drawNewFrame);
+		//We also need to tell the ticker what the frame rate is. How often does our ticker "count" a frame?
+		createjs.Ticker.setFPS(12);
+	}
+	
+	
+	//Now we set up a small function here that redraws or updates our stage on each frame
+	//Later on, the contents of this function will be crucial for animating objects and values
+	function drawNewFrame(evt){
+		myStage.update();
+	}
+
+</script>
+
+<!-- Give the web page a title if you want-->
+<title>My first CreateJS app</title>
+
+</head>
+
+<!-- 
+This is what's known as the "Body" of the document.
+You won't be spending a lot of time here but it's important to know what happens down here.
+In the body we're going to place a box where your app will be displayed inside of the web browser (more on that to come).
+The important thing here is to put a special command in here to tell our web browser to run a javascript command called "init()" once the web browser has loaded the HTML. What happens in "init()" is defined above.
+-->
+<body onload="init()">
+
+<!--
+Inside of the body, we're going to create a canvas.
+A canvas is a relatively NEW concept and is compatible with most modern web browsers. This is the reason we want to use this method: The majority of people with updated computers can see this so we can reach a wide audience.
+The canvas is a blank element that we can populate with images, animation, etc. We use Javascript to tell the canvas what we want it to do. We give the canvas an ID and a size. This is essentially the size (width/height) of the viewing window for your app. Let's try a small resolution to begin.
+
+How do you think you can use HTML and CSS to reposition the Canvas element in a larger webpage?
+
+The HTML5 canvas is what one would expect a real-world canvas to be: highly extensible and awaiting our creative influence.
+-->
+<canvas id="myCanvas" width="640" height="360">Sorry. You need an HTML5 compatible browser to see this.</canvas>
+<p>This example shows how to set up a stage and add a display object to it.</p>
+<p>This is the baseline of building a CreateJS project</p>
+<p>If you don't see the project at first then try reloading the web page.</p>
+</body>
+<!--
+Congratulations! You've successfully built your first CreateJS app! It doesn't do much right now but we're going to teach some new tricks in upcoming samples to make this much more interesting. Make sure you understand what's going on here before you go any further as you're likely to get lost rather quickly if you don't understand this.
+-->
+
+</HTML>

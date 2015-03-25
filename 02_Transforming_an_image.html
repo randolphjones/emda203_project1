@@ -1,0 +1,70 @@
+<HTML>
+
+<!-- 
+In this module, we'll be transforming an image (display object). Basic transformation involves translating (moving), rotating, and scaling.
+
+We're going to add an image to the stage and then apply a few transformations to this. It's very important to know this because it's the baseline for procedural animation.
+
+Everything that's not commented is explained in the previous module so if any of this is confusing go back and read that one first.
+-->
+<head>
+<script src="js/createjs-2013.02.12.min.js"></script>
+<script>
+	var myStage;
+	var myHat;
+	function init(){
+		myStage = new createjs.Stage(document.getElementById("myCanvas"));
+		
+		//This should look familiar. This is how we create a new bitmap object, right?
+		//Let's add a graphic of a hat
+		myHat = new createjs.Bitmap("images/hat.png");
+		
+		//Now that the hat is an object in our app, we can apply all kinds of transformations to it to properly place it.
+		//Here's a quick tip. Bitmaps are a smaller subset of what are known as DISPLAY OBJECTS.
+		//Display Objects are typically subject to these same manipulations
+		
+		//Let's translate or move the HAT. We do this by setting the X and Y coordinate for the hat
+		myHat.x = 320;
+		myHat.y = 180;
+		
+		//Let's rotate our hat some by setting it's rotation property to the number of degrees we want.
+		myHat.rotation=45;
+		
+		//Now let's use the scaleX and scaleY properties to set the size of our object.
+		myHat.scaleX=.6;
+		myHat.scaleY=.6;
+		
+		//Now change the properties above to new numbers. Reload this file in your web browser to see how the image changes.
+		//What happens when these values are set to 0?
+		//What happens when these values are set to 1?
+		//Try various combinations to see what happens.
+		
+		myStage.addChild(myHat);
+		
+		
+		createjs.Ticker.addEventListener('tick', drawNewFrame);
+		createjs.Ticker.setFPS(12);
+		
+	}
+
+	function drawNewFrame(evt){
+		myStage.update();
+	}
+
+			
+		// Congrats! You're now the master of display object manipulation.
+		// If we had a way to change these transformations a little bit each time a frame is counted then what do you think we'll get?
+		// Do you think we could use read the transform properties of another display object, change those properties, and then apply them to a different display object? What effect do you think this would create for us?
+
+
+	
+</script>
+<title>My first CreateJS app</title>
+</head>
+
+<body onload="init()">
+<canvas id="myCanvas" width="640" height="360">Sorry. You need an HTML5 compatible browser to see this.</canvas>
+<p>This example shows how to transform a display object.</p>
+<p>If you don't see the project at first then try reloading the web page.</p>
+</body>
+</HTML>

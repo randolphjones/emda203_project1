@@ -1,0 +1,73 @@
+<HTML>
+
+<!-- 
+In this module, we'll be adding a looping animated sprite sheet to the stage.
+
+You should have generated your sprite sheet from Flash already and have it ready to go.
+
+Note that the .js file for your sprite needs to be slightly MODIFIED. This is very important to do as flash doesn't export the right code.
+It's a very easy fix and will not take you any more than a minute to fix so pay attention below.
+
+-->
+<head>
+<script src="js/createjs-2013.02.12.min.js"></script>
+
+<!--
+NOTE HERE! We now have a new .js file we need to include in our HTML file. This is the .js file that's been generated from Flash when you generated your sprite sheet. Please open up this .js file right now and modify it per the instructions I've given you in the example .js file
+
+Don't worry. I'll wait here until you come back...
+...
+...
+...
+Okay! Great. Let's continue...
+-->
+<script src="spriteSheets/eggMan_walk.js"></script>
+<script>
+	var myStage;
+
+		function init(){
+			myStage = new createjs.Stage(document.getElementById("myCanvas"));
+			
+			//Add a variable to hold a new instance of our animated sprite and name the variable whatever you like. Here I call mine "eggMan"
+			//You do, however, need to use the same name of the spritesheet you picked when you generated it in Flash.
+			//Here, I named my spritesheet eggMan_walk and so I have to create a new instance of that.
+			var eggMan = new eggMan_walk();
+			
+			//You know all about transformation now (right?) so no need to explain what these functions do
+			eggMan.x=320;
+			eggMan.y=180;
+			
+			//Add the animated sprite to the stage.
+			myStage.addChild(eggMan);
+			
+			
+			createjs.Ticker.setFPS(12);
+			createjs.Ticker.addEventListener("tick", drawNewFrame);
+			
+
+		}
+		
+		function drawNewFrame(evt){
+
+			myStage.update();
+		}
+		
+		//Congratulations again! You now have that animated sprite in Flash working in CreateJS.
+		//Hey, look! It's working in your web browser without needing a plug-in. Pretty cool, right?
+		//Why do you think it's important for us to try and minimize the amount of special plug-ins that are needed to see your game?
+		//If you built this app in Flash and used the Flash plug-in within a web browser, what kind of limitations do you think you would encounter?
+		// Now that we have a function that executes for each frame and we know how to transform a display object, do you have an ideas for new things we can try now?
+		//Why is our sprite just running place? Is there something additional that we need to do?
+		//Did you notice that eggMan is not a global variable here? What would the benefit be of making eggMan global?
+	
+
+</script>
+<title>My first CreateJS app</title>
+</head>
+
+<body onload="init()">
+<canvas id="myCanvas" width="640" height="360">Sorry. You need an HTML5 compatible browser to see this.</canvas>
+<p>This example shows how to display an animated sprite in your CreateJS project.</p>
+<p>If you don't see the project at first then try reloading the web page.</p>
+</body>
+</HTML>
