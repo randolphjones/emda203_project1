@@ -1,5 +1,4 @@
-# emda203_project1
-Project 1 code examples for EMDA 203
+# EMDA 203 Project 1
 
 These are code samples for EMDA 203
 
