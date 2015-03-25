@@ -1,0 +1,79 @@
+<HTML>
+
+<!-- 
+In this module, we'll be exploring basic user interaction.
+
+You know how to put things in your app and give them motion but how do we now let the user control these things. It wouldn't be a very interesting game or app if somebody couldn't control the input.
+
+Below, we're going to collect information about a user's mouse click and move a display object to that location. This requires using an EVENT LISTNER. 
+-->
+<head>
+<script src="js/createjs-2014.12.12.min.js"></script>
+<script>
+	var myStage;
+	var spatula;
+
+
+		function init(){
+		myStage = new createjs.Stage(document.getElementById("myCanvas"));
+		
+		//Let's add a bitmap to our stage. Nothing really new here.
+		spatula = new createjs.Bitmap("images/spatula.png");
+		spatula.regX = 135;
+		spatula.regY = 300;
+		spatula.x=(document.getElementById("myCanvas").width)/2;
+		spatula.y=(document.getElementById("myCanvas").height)/2;
+		myStage.addChild(spatula);
+		
+		//Here's a new concept: an EVENT LISTENER (or EVENT HANDLER)
+		//An event listener "attaches" to a certain display object or element of your app. When a certain event happen TO that element then we specify something that is to happen in REACTION to that event. usually this is a function we specify later on in our code.
+		//The psuedocode format for an event listener is best specified as appElement.addEventlistener(When this happens, DO THIS);
+		//Here we attach a listener to the stage. When the stage senses that the mouse button is DOWN then it will run a function called handleClick. This function is specified below.
+		myStage.addEventListener("stagemousedown", handleClick);
+		
+		//Experiment above by changing the event to something else such as "mouseMove" or "mouseup" and see the difference
+		//Are mouse events the only kind of events we can listen for?
+		
+		createjs.Ticker.setFPS(12);
+		createjs.Ticker.addEventListener("tick", drawNewFrame);
+		}
+		
+		//Here is the function that executes when our event happens.
+		//We specify something here called EVT. evt is a variable we use that will contain the PROPERTIES for our event that happens.
+		//In code, events have properties much like any real or physical event (Who, what, when, where, why, how). Well in this instance we're taking our "mousedown" event and storing it in a variable so later we can draw different properties out of that event and use them to change things on our screen. 
+		function handleClick(evt){
+			//sometimes it's helpful to send a printed message to our console so we know it's working properly
+			console.log("Mouse clicked!");
+			
+			//Here we're going to execute a tween. The tween overrides any tween we have going on.
+			//Notice how we use evt.stageX. This is the X coordinate of where our mouse is clicked. We can feed that value into a tween to influence how something happens. In this case, we're tweening display object to the place where we click with the mouse.
+			createjs.Tween.get(spatula, {override:true})
+				.to({x:evt.stageX, y:evt.stageY}, 500, createjs.Ease.easeOut);
+		}
+		
+		//You're encouraged to add new things into this function and plug new variable into them that will change behaviors.
+		
+		
+		function drawNewFrame(evt){
+		myStage.update();
+		}
+		
+		//Congratulations! You can now add basic user interactivity to your app. This in addition to the previous modules can be used to create version 1.0 of your game. How do you think all of these elements can fit together?
+		// Where else you think we would be able to insert user-input values to influence behavior?
+		//So we've been tweening still images here but don't you think all of this same stuff works for an animated sprite like we created in previous modules? What would happen if you combined this coding with your animated sprite coding?
+		//How would you refer to some of these concepts in general terms so you can "pseudocode" your game (app) concept and develop a plan for the user experience?
+		
+		//There will be follow-on modules to explain more complex concepts (changing sprite animation states, preloading, audio) so keep an eye out for more examples to work with and integrate into your project. These will be available to work with at the 2.0 stage in your app development.
+	
+
+</script>
+<title>My first CreateJS app</title>
+</head>
+
+<body onload="init()">
+<canvas id="myCanvas" width="640" height="360">Sorry. You need an HTML5 compatible browser to see this.</canvas>
+<p>Click anywhere to move the spatula.</p>
+<p>This example shows how to take user input and turn it into on-screen action.</p>
+<p>If you don't see the project at first then try reloading the web page.</p>
+</body>
+</HTML>
